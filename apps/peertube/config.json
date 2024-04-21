@@ -2,7 +2,7 @@
     "$schema": "../schema.json",
     "name": "PeerTube",
     "available": true,
-    "port": 8000,
+    "port": 9000,
     "exposable": true,
     "id": "peertube",
     "description": "PeerTube is a free, decentralized and federated video platform developed as an alternative to other platforms that centralize our data and attention, such as YouTube, Dailymotion or Vimeo.",
