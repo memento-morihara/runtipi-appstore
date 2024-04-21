@@ -8,6 +8,13 @@
     "short_description": "A decentralized YouTube alternative.",
     "tipi_version": 1,
     "version": "6.0.4",
+    "categories": [
+        "media",
+        "social"
+    ],
+    "author": "https://framasoft.org/",
+    "source": "https://github.com/Chocobozzz/PeerTube",
+    "website": "https://joinpeertube.org",
     "form_fields": [
         {
             "type": "email",
