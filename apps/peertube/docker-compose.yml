@@ -77,7 +77,7 @@ services:
   postgres:
     image: postgres:13-alpine
     environment:
-      - POSTGRES_PASSWORD=${PEERTUBE_POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=tipi
       - POSTGRES_USER=tipi
       - POSTGRES_DB=peertube
     volumes:
