@@ -1,0 +1,51 @@
+{
+    "name": "PeerTube",
+    "available": true,
+    "port": 8000,
+    "exposable": true,
+    "id": "peertube",
+    "description": "PeerTube is a free, decentralized and federated video platform developed as an alternative to other platforms that centralize our data and attention, such as YouTube, Dailymotion or Vimeo.",
+    "short_description": "A decentralized YouTube alternative.",
+    "tipi_version": 1,
+    "version": "6.0.4",
+    "form_fields": [
+        {
+            "type": "email",
+            "label": "Administrator email",
+            "required": true,
+            "env_variable": "ADMIN_EMAIL"
+        },
+        {
+            "type": "password",
+            "label": "Administrator password",
+            "required": true,
+            "env_variable": "ADMIN_PASSWORD"
+        },
+        {
+            "type": "random",
+            "label": "Postgres password",
+            "min": 32,
+            "required": false,
+            "env_variable": "PEERTUBE_POSTGRES_PASSWORD"
+        },
+        {
+            "type": "text",
+            "label": "Postgres user",
+            "required": false,
+            "env_variable": "POSTGRES_USER"
+        },
+        {
+            "type": "random",
+            "label": "PeerTube secret",
+            "required": false,
+            "min": 32,
+            "env_variable": "PEERTUBE_SECRET"
+        },
+        {
+            "type": "text",
+            "label": "Domain",
+            "required": false,
+            "env_variable": "DOMAIN_NAME"
+        }
+    ]
+}
