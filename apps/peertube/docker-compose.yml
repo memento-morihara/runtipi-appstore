@@ -51,10 +51,6 @@ services:
     # This container could be restarted on crash or until the postgresql database is ready for connection
     environment:
       - PEERTUBE_SECRET=${PEERTUBE_SECRET}
-      - PEERTUBE_WEBSERVER_HOSTNAME=${LOCAL_DOMAIN}
-      - PEERTUBE_WEBSERVER_HTTPS=true
-      - PEERTUBE_WEBSERVER_PORT=${APP_PORT}
-      - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.18.0.0/16", "10.0.0.225", "${INTERNAL_IP}"]
 
     networks:
       - tipi_main_network

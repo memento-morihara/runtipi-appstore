@@ -32,15 +32,9 @@
         {
             "type": "random",
             "label": "PeerTube secret",
-            "required": true,
+            "required": false,
             "min": 32,
             "env_variable": "PEERTUBE_SECRET"
-        },
-        {
-            "type": "text",
-            "label": "Domain",
-            "required": false,
-            "env_variable": "DOMAIN_NAME"
         }
     ]
 }
