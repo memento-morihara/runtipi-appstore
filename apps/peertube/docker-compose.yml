@@ -56,6 +56,9 @@ services:
       - PEERTUBE_WEBSERVER_PORT=${APP_PORT}
       - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.18.0.0/16", "10.0.0.225", "${INTERNAL_IP}"]
 
+    networks:
+      - tipi_main_network
+
     ports:
     #  - "1935:1935" # Comment if you don't want to use the live feature
     #  - "${APP_PORT}:9000" # Uncomment if you use another webserver/proxy or test PeerTube in local, otherwise not suitable for production
