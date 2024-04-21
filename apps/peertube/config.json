@@ -33,19 +33,13 @@
             "type": "random",
             "label": "Postgres password",
             "min": 32,
-            "required": false,
+            "required": true,
             "env_variable": "PEERTUBE_POSTGRES_PASSWORD"
-        },
-        {
-            "type": "text",
-            "label": "Postgres user",
-            "required": false,
-            "env_variable": "POSTGRES_USER"
         },
         {
             "type": "random",
             "label": "PeerTube secret",
-            "required": false,
+            "required": true,
             "min": 32,
             "env_variable": "PEERTUBE_SECRET"
         },

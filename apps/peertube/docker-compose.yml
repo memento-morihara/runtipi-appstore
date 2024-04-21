@@ -50,11 +50,14 @@ services:
     # Use a static IP for this container because nginx does not handle proxy host change without reload
     # This container could be restarted on crash or until the postgresql database is ready for connection
     networks:
-      - tipi_main_network
+      internal:
+        - tipi_main_network
+      proxy:
     environment:
       - PEERTUBE_SECRET=${PEERTUBE_SECRET}
       - PEERTUBE_WEBSERVER_HOSTNAME=${LOCAL_DOMAIN}
       - PEERTUBE_WEBSERVER_HTTPS=true
+      - PEERTUBE_WEBSERVER_PORT=${APP_PORT}
       - PEERTUBE_TRUST_PROXY=["127.0.0.1", "loopback", "172.18.0.0/16", "${INTERNAL_IP}"]
 
     ports:
@@ -101,11 +104,13 @@ services:
     restart: "always"
 
 networks:
-  default:
+  internal:
     ipam:
       driver: default
       config:
       - subnet: 172.18.0.0/16
+  proxy:
+    external: true
 
 volumes:
   assets:
