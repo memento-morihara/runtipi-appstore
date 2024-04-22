@@ -92,7 +92,7 @@ services:
       - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
     restart: "always"
     networks:
-      internal:
+      - internal:
       - tipi_main_network
 
   redis:
