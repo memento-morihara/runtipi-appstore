@@ -67,17 +67,19 @@ services:
       # - assets:/app/client/dist
       - ${APP_DATA_DIR}/data:/data
       - ${APP_DATA_DIR}/config:/config
+    networks:
+      - tipi_main_network
     depends_on:
       - postgres
       - redis
       - postfix
     restart: "always"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.peertube-web.rule=Host(`${APP_DOMAIN}`)"
-      - "traefik.http.services.peertube-web.loadbalancer.server.port=9000"
-      - "traefik.http.routers.peertube-web.entrypoints=websecure"
-      - "traefik.docker.network=proxy"
+      traefik.enable: ${APP_EXPOSED}
+      traefik.http.routers.peertube-web.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.services.peertube-web.loadbalancer.server.port: 9000
+      traefik.http.routers.peertube-web.entrypoints: websecure
+      traefik.docker.network: proxy
 
   postgres:
     image: postgres:13-alpine
@@ -96,6 +98,8 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/redis:/data
     restart: "always"
+    networks:
+      - tipi_main_network
 
   postfix:
     image: mwader/postfix-relay
@@ -110,8 +114,8 @@ services:
       - ${APP_DATA_DIR}/opendkim/keys:/etc/opendkim/keys
     restart: "always"
 
-networks:
-  - tipi_main_network
+    networks:
+      - tipi_main_network
 
 volumes:
   assets:
