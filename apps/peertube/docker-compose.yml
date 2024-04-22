@@ -79,6 +79,8 @@ services:
       traefik.http.services.peertube-web.loadbalancer.server.port: 9000
       traefik.http.routers.peertube-web.entrypoints: websecure
       traefik.docker.network: proxy
+    env_file:
+      - ${APP_DATA_DIR}/app.env
 
   postgres:
     image: postgres:13-alpine
@@ -91,6 +93,8 @@ services:
     restart: "always"
     networks:
       - tipi_main_network
+    env_file:
+      - ${APP_DATA_DIR}/app.env
 
   redis:
     image: redis:6-alpine
@@ -115,6 +119,9 @@ services:
 
     networks:
       - tipi_main_network
+
+    env_file:
+      - ${APP_DATA_DIR}/app.env
 
 volumes:
   assets:
