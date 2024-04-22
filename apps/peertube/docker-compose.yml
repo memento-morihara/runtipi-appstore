@@ -51,6 +51,8 @@ services:
     # This container could be restarted on crash or until the postgresql database is ready for connection
     environment:
       - PEERTUBE_SECRET=${PEERTUBE_SECRET}
+      - PEERTUBE_DB_USERNAME=tipi
+      - PEERTUBE_DB_PASSWORD=tipi
 
     networks:
       - tipi_main_network
