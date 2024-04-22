@@ -55,11 +55,7 @@ services:
       - PEERTUBE_DB_PASSWORD=tipi
 
     networks:
-      - tipi:
-          - tipi_main_network
-      - internal:
-          ipv4_address: 172.19.0.42
-      - proxy:
+      - tipi_main_network
 
     ports:
     #  - "1935:1935" # Comment if you don't want to use the live feature
@@ -93,9 +89,7 @@ services:
       - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
     restart: "always"
     networks:
-      - internal:
-      - tipi:
-          - tipi_main_network
+      - tipi_main_network
 
   redis:
     image: redis:6-alpine
@@ -117,15 +111,7 @@ services:
     restart: "always"
 
 networks:
-  - tipi:
-      - tipi_main_network
-  - internal:
-      ipam:
-        driver: default
-        config:
-        - subnet: 172.18.0.0/16
-  - proxy:
-      external: true
+  - tipi_main_network
 
 volumes:
   assets:
