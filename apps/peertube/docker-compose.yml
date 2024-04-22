@@ -56,6 +56,9 @@ services:
 
     networks:
       - tipi_main_network
+      - internal:
+          ipv4_address: 172.19.0.42
+      - proxy:
 
     ports:
     #  - "1935:1935" # Comment if you don't want to use the live feature
@@ -72,6 +75,12 @@ services:
       - redis
       - postfix
     restart: "always"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.peertube-web.rule=Host(`${APP_DOMAIN}`)"
+      - "traefik.http.services.peertube-web.loadbalancer.server.port=9000"
+      - "traefik.http.routers.peertube-web.entrypoints=websecure"
+      - "traefik.docker.network=proxy"
 
   postgres:
     image: postgres:13-alpine
@@ -82,6 +91,9 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
     restart: "always"
+    networks:
+      internal:
+      - tipi_main_network
 
   redis:
     image: redis:6-alpine
@@ -103,12 +115,15 @@ services:
     restart: "always"
 
 networks:
-  internal:
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.18.0.0/16
+  - tipi_main_network
+  - internal:
+      ipam:
+        driver: default
+        config:
+        - subnet: 172.18.0.0/16
+  - proxy:
+      external: true
 
 volumes:
   assets:
-  certbot-www:
+    
