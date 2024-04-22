@@ -119,3 +119,9 @@ services:
 volumes:
   assets:
     
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.0.0/16
