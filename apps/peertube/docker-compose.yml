@@ -92,7 +92,7 @@ services:
       - ${APP_DATA_DIR}/data/db:/var/lib/peertube/postgresql/data
     restart: "always"
     ports:
-      - "5555:5432"
+      - "8029:5432"
 
   redis:
     image: redis:6-alpine
