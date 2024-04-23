@@ -54,6 +54,7 @@ services:
       - PEERTUBE_DB_USERNAME=tipi
       - PEERTUBE_DB_PASSWORD=${POSTGRES_PASSWORD}
       - PEERTUBE_DB_HOSTNAME=${APP_HOST}
+      - PEERTUBE_DB_NAME=peertube
 
     networks:
       - tipi_main_network
