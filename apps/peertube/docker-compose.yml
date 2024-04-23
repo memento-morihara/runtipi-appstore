@@ -120,7 +120,6 @@ volumes:
 
 networks:
   static:
-    ipv4_address: 172.18.0.42
   default:
     ipam:
       driver: default
