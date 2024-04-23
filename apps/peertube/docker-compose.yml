@@ -56,8 +56,14 @@ services:
       - PEERTUBE_DB_HOSTNAME=${INTERNAL_IP}
       - PEERTUBE_DB_NAME=peertube
       - PEERTUBE_DB_PORT=8029
-      - DOMAIN=${APP_DOMAIN}
-      - PEERTUBE_WEBSERVER_HOSTNAME=${APP_DOMAIN}
+      - PEERTUBE_WEBSERVER_HOSTNAME=${DOMAIN}
+      - PEERTUBE_WEBSERVER_PORT=80
+      - PEERTUBE_WEBSERVER_HTTPS=false
+      - PEERTUBE_ADMIN_EMAIL=${ADMIN_EMAIL}
+      - PEERTUBE_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - PEERTUBE_REDIS_HOSTNAME=${INTERNAL_IP}
+      - PEERTUBE_REDIS_PORT=6379
+      - PEERTUBE_REDIS_AUTH=${REDIS_PASSWORD}
 
     networks:
       - static
@@ -65,7 +71,7 @@ services:
 
     ports:
       #  - "1935:1935" # Comment if you don't want to use the live feature
-      - "${APP_PORT}:9000" # Uncomment if you use another webserver/proxy or test PeerTube in local, otherwise not suitable for production
+      - "8030:9000" # Uncomment if you use another webserver/proxy or test PeerTube in local, otherwise not suitable for production
       # - "${APP_PORT}:80"
       # - "${APP_PORT}:443"
     volumes:
@@ -104,12 +110,14 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/redis:/data/redis
     restart: "always"
+    ports:
+      - "8028:6379"
   postfix:
     image: mwader/postfix-relay
     environment:
       - PEERTUBE_SMTP_HOSTNAME=postfix
       - PEERTUBE_SMTP_PORT=25
-      - PEERTUBE_SMTP_FROM=noreply@${LOCAL_DOMAIN}
+      - PEERTUBE_SMTP_FROM=noreply@${APP_DOMAIN}
       - PEERTUBE_SMTP_TLS=false
       - PEERTUBE_SMTP_DISABLE_STARTTLS=false
       - PEERTUBE_ADMIN_EMAIL=${ADMIN_EMAIL}
