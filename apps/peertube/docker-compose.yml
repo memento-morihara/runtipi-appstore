@@ -55,6 +55,8 @@ services:
       - PEERTUBE_DB_PASSWORD=${POSTGRES_PASSWORD}
       - PEERTUBE_DB_HOSTNAME=${INTERNAL_IP}
       - PEERTUBE_DB_NAME=peertube
+      - PEERTUBE_DB_PORT=8029
+      - DOMAIN=${APP_DOMAIN}
 
     networks:
       - static
@@ -63,8 +65,8 @@ services:
     ports:
       #  - "1935:1935" # Comment if you don't want to use the live feature
       - "${APP_PORT}:9000" # Uncomment if you use another webserver/proxy or test PeerTube in local, otherwise not suitable for production
-      # - "${APP_PORT}:80"
-      # - "${APP_PORT}:443"
+      - "${APP_PORT}:80"
+      - "${APP_PORT}:443"
     volumes:
       # Remove the following line if you want to use another webserver/proxy or test PeerTube in local
       - assets:/app/client/dist
@@ -74,7 +76,7 @@ services:
     depends_on:
       - postgres
       - redis
-      # - postfix
+      - postfix
     restart: "always"
     labels:
       traefik.enable: true
@@ -101,18 +103,18 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data/redis:/data/redis
     restart: "always"
-  # postfix:
-  #   image: mwader/postfix-relay
-  #   environment:
-  #     - PEERTUBE_SMTP_HOSTNAME=postfix
-  #     - PEERTUBE_SMTP_PORT=25
-  #     - PEERTUBE_SMTP_FROM=noreply@${LOCAL_DOMAIN}
-  #     - PEERTUBE_SMTP_TLS=false
-  #     - PEERTUBE_SMTP_DISABLE_STARTTLS=false
-  #     - PEERTUBE_ADMIN_EMAIL=${ADMIN_EMAIL}
-  #   volumes:
-  #     - ${APP_DATA_DIR}/opendkim/keys:/etc/opendkim/keys
-  #   restart: "always"
+  postfix:
+    image: mwader/postfix-relay
+    environment:
+      - PEERTUBE_SMTP_HOSTNAME=postfix
+      - PEERTUBE_SMTP_PORT=25
+      - PEERTUBE_SMTP_FROM=noreply@${LOCAL_DOMAIN}
+      - PEERTUBE_SMTP_TLS=false
+      - PEERTUBE_SMTP_DISABLE_STARTTLS=false
+      - PEERTUBE_ADMIN_EMAIL=${ADMIN_EMAIL}
+    volumes:
+      - ${APP_DATA_DIR}/opendkim/keys:/etc/opendkim/keys
+    restart: "always"
 
 volumes:
   assets:
