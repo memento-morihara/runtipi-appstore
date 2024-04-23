@@ -52,7 +52,7 @@ services:
     environment:
       - PEERTUBE_SECRET=${PEERTUBE_SECRET}
       - PEERTUBE_DB_USERNAME=tipi
-      - PEERTUBE_DB_PASSWORD=tipi
+      - PEERTUBE_DB_PASSWORD=${POSTGRES_PASSWORD}
 
     networks:
       - tipi_main_network
@@ -64,7 +64,7 @@ services:
       # - "${APP_PORT}:443"
     volumes:
       # Remove the following line if you want to use another webserver/proxy or test PeerTube in local
-      # - assets:/app/client/dist
+      - assets:/app/client/dist
       - ${APP_DATA_DIR}/data:/data
       - ${APP_DATA_DIR}/config:/config
 
@@ -86,9 +86,12 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=tipi
       - POSTGRES_DB=peertube
+      - POSTGRES_HOST=${APP_HOST}
     volumes:
       - ${APP_DATA_DIR}/data/db:/var/lib/peertube/postgresql/data
     restart: "always"
+    ports:
+      - "5555:5432"
 
   redis:
     image: redis:6-alpine
