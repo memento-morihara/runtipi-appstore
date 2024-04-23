@@ -59,7 +59,9 @@ services:
     networks:
       default:
         ipv4_address: 172.18.0.42
-      tipi: tipi_main_network
+      tipi:
+        name: tipi_main_network
+        external: true
 
     ports:
       #  - "1935:1935" # Comment if you don't want to use the live feature
