@@ -57,6 +57,7 @@ services:
       - PEERTUBE_DB_NAME=peertube
       - PEERTUBE_DB_PORT=8029
       - DOMAIN=${APP_DOMAIN}
+      - PEERTUBE_WEBSERVER_HOSTNAME=${APP_DOMAIN}
 
     networks:
       - static
